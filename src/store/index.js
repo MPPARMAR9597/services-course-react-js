@@ -1,24 +1,43 @@
-const services = [
-    {
-        id: '2asd8sa7d98',
-        user: 'some_id_1',
-        category: 'mathematics',
-        title: 'I will teach you math fast!',
-        description: 'I am teaching highschool mathematics, algebra, triogometry. I can teach you anything!',
-        price: 10, //per hour
-        image: 'https://images.unsplash.com/photo-1535551951406-a19828b0a76b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-        btnTitle: 'Learn More'
-    },
-    {
-        id: 'ssa9d789as7',
-        user: 'some_id_2',
-        category: 'programming',
-        title: 'I will teach you Programming fast!',
-        description: 'I am teaching C++, C#, JS ...',
-        price: 10, //per hour
-        image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-        btnTitle: 'Learn More'
-    }
-]
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import servicesApp from "../reducers";
 
-export const getServices = () => [...services]
+const logger = store => nextDispatch => action => {
+    console.group(action.type)
+    console.log('%c Prev State', 'color : Pink', store.getState())
+    console.log('%c Action', 'color : red', action)
+    const returnVal = nextDispatch(action)
+    console.log('%c Next State', 'color : green', store.getState())
+    console.groupEnd(action.type)
+    return returnVal
+}
+
+const promise = store => nextDispatch => action => {
+    if (typeof action.then === 'function') {
+        return action.then(nextDispatch)
+    }
+    return nextDispatch(action)
+}
+
+const applyMiddlewares = (store, middleWares) => {
+    middleWares.slice().reverse().forEach(middleWare => {
+        store.dispatch = middleWare(store)(store.dispatch)
+    });
+}
+
+const initStore = () => {
+    const middleWares = [promise]
+
+    var browserSupport = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
+    const store = createStore(servicesApp, browserSupport)
+
+    if (process.env.NODE_ENV !== 'production') {
+        middleWares.push(logger)
+    }
+
+    applyMiddlewares(store, middleWares)
+
+    return store
+}
+
+export default initStore

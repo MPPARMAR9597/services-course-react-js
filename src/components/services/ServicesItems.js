@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 const ServicesItems = ({ services }) => {
 
     const ShortText = (text, maxLength = 50) => {
         if (!text) { return '' }
         if (text.length <= maxLength) { return text }
-        return text.substr(0, maxLength) + '...'
+        return text.substr(0, maxLength) + ' ... '
     }
 
     return (
@@ -15,13 +16,13 @@ const ServicesItems = ({ services }) => {
                     <h4>{services.title}</h4>
                 </div>
                 <div className="card-icon">
-                    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="" />
+                    <img src={services.image} alt="" />
                 </div>
                 <div className="card-text">
                     <p>{ShortText(services.description)}</p>
                 </div>
                 <div className="card-action">
-                    <a href="#" className="button btn-align-md accent-btn raised">{services.btnTitle}</a>
+                    <Link to={`/services/${services.id}`} className="button btn-align-md accent-btn raised">{services.btnTitle}</Link>
                 </div>
             </div>
         </div>

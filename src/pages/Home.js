@@ -1,26 +1,23 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from 'react'
-import { getServices } from "../store/index";
+import { connect } from "react-redux";
+
+import { fetchServices } from "../actions/index";
+
 import ServicesItems from "../components/services/ServicesItems";
 import Hero from "../components/Hero";
 
 class Home extends React.Component {
 
-    state = {
-        services: []
-    }
+    state = { services: [] }
 
-    componentDidMount() {
-        const services = getServices()
-        this.setState({ services })
-    }
+    componentDidMount() { this.props.dispatch(fetchServices()) }
 
     renderServices = (services) => services.map(services => <ServicesItems key={services.id} services={services} />)
 
-
     render() {
-        const { services } = this.state
+        const { services } = this.props
         return (
             <div>
                 <Hero />
@@ -42,4 +39,6 @@ class Home extends React.Component {
     }
 }
 
-export default Home
+const mapStateToProps = state => ({ services: state.services.items })
+
+export default connect(mapStateToProps)(Home)

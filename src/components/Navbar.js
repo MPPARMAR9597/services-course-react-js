@@ -9,7 +9,7 @@ const Navbar = (props) => {
         <nav id={props.id || ''} className="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
             <div className="container">
                 <div className="navbar-brand">
-                    <a className="navbar-item" href="https://cssninja.io"><div className="title">Servicio</div></a>
+                    <Link to="/" className="navbar-item"><div className="title">Servicio</div></Link>
                     <a className="navbar-item is-hidden-desktop is-hidden-tablet">
                         <div id="menu-icon-wrapper" className="menu-icon-wrapper" style={{ visibility: 'visible' }}>
                             <svg width="1000px" height="1000px">
