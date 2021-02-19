@@ -1,6 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./pages/Home";
+
+import HomePage from "./pages/Home";
+import FaqPage from "./pages/Faq";
+import ProfilePage from "./pages/Profile";
+import ServicesPage from "./pages/Services";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+
+import Navbar from '../src/components/Navbar'
 import Sidebar from "../src/components/Sidebar";
 
 // React Components
@@ -8,8 +16,28 @@ import Sidebar from "../src/components/Sidebar";
 function App() {
   return (
     <div>
-      <Home />
-      <Sidebar />
+      <Router>
+        <Navbar />
+        <Navbar id="navbar-clone" />
+        <Sidebar />
+
+        <Switch>
+
+          <Route path="/services"><ServicesPage /></Route>
+
+          <Route path="/profile"><ProfilePage /></Route>
+
+          <Route path="/faq"><FaqPage /></Route>
+
+          <Route path="/login"><LoginPage /></Route>
+
+          <Route path="/register"><RegisterPage /></Route>
+
+          <Route path="/"><HomePage /></Route>
+
+        </Switch>
+
+      </Router>
     </div>
   );
 }
