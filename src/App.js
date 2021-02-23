@@ -30,7 +30,7 @@ function App() {
 
         <Switch>
 
-          <Route path="/services/:serviceId"><ServiceDetailPage /></Route>
+          <Route path="/services/:servicesId"><ServiceDetailPage /></Route>
 
           <Route path="/services"><ServicesPage /></Route>
 

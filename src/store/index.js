@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import servicesApp from "../reducers";
+import servicesApp from "../reducers/index";
 
 const logger = store => nextDispatch => action => {
     console.group(action.type)
